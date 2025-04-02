@@ -1,9 +1,55 @@
-import Image from "next/image";
+'use client';
+// import Image from "next/image";
+// import { global } from "@/types/globals";
+// import Avatar from "@/types/avatar-library.d";
+// import { AvatarInstructions } from "@/types/avatar-library.d";
+import Script from 'next/script';
+import Avatar from '@/public/assets/scripts/avatar-library';
+import { AvatarInstructions } from '@/public/assets/scripts/avatar-library';
+// import { TestCl } from 'testfoo';
+import { useEffect } from "react";
 
 export default function Home() {
+  // let a: Avatar;
+  const instrux: AvatarInstructions = {
+    mouthOpen: false,
+    headTurn: "front", //"front", "left", "right"
+    eyes: "front", //"front", "left", "right", "close"
+    headRotate: 0,
+    neckRotate: 0,
+    hipsRotate: 0,
+    chestRotate: 0,
+    footLeftRotate: 0,
+    legLeftLowerRotate: 0,
+    legLeftUpperRotate: 0,
+    footRightRotate: 0,
+    legRightLowerRotate: 0,
+    legRightUpperRotate: 0,
+    handLeftRotate: 0,
+    armLeftLowerRotate: 0,
+    armLeftUpperRotate: 0,
+    handRightRotate: 0,
+    armRightLowerRotate: 0,
+    armRightUpperRotate: 0,
+    rightShrug: 0,
+    leftShrug: 0,
+    headShrug: 0
+  };
+  useEffect(() => {
+    const a = new Avatar();
+    window.addEventListener('avataronready', function (e) {
+      console.log('avatar is ready:', e);
+      a.go(instrux);
+    });
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <div>
+      <Script src="@/.next/public/assets/scripts/createjs.min.js"  strategy="afterInteractive"/>
+      {/* <Script src="./public/assets/scripts/avatar-library.js"  strategy="afterInteractive"/> */}
+      <canvas id="cnvs" width="933" height="935"></canvas>
+
+      {/* <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -97,7 +143,11 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 }
+function scriptLoaded() {
+  throw new Error("Function not implemented.");
+}
+
