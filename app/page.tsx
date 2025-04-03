@@ -37,6 +37,8 @@ export default function Home() {
     window.addEventListener('avataronready', function (e) {
       console.log('avatar is ready:', e);
       a.go(instrux);
+      a.transformSet(.8);
+      a.updateStage();
     });
   }, []);
 
