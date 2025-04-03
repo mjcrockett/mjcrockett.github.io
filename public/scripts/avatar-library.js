@@ -891,7 +891,7 @@
 	  //hips 116 X 87
 	  var hips = new createjs.Bitmap(_hips);
 	  lowerBody.addChild(hips);
-	  b = lowerBody.getBounds();
+	  var b = lowerBody.getBounds();
 	  lowerBody.x = (C.BODY_WIDTH - b.width) / 2 + 58;
 	  lowerBody.y = 310 + 15;
 	  lowerBody.regX = 58;
@@ -987,7 +987,6 @@
 	  var rThigh = new createjs.Bitmap(_rThigh);
 	  this.rThighContainer.addChild(rThigh);
 	  lowerBody.addChild(this.rThighContainer);
-	  b = this.rThighContainer.getBounds();
 	  this.rThighContainer.x = 109 - 95;
 	  this.rThighContainer.y = 10 + 30;
 	  this.rThighContainer.regX = 95;
@@ -1050,7 +1049,7 @@
 	  //torso 132 X 193 
 	  var torso = new createjs.Bitmap(torso);
 	  upperBody.addChild(torso);
-	  b = upperBody.getBounds();
+	  var b = upperBody.getBounds();
 	  upperBody.x = (C.BODY_WIDTH - b.width) / 2 + 80;
 	  upperBody.y = 85 + 200;
 	  upperBody.regX = 80;

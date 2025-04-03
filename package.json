@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "copyfiles --up 4 node_modules/createjs/builds/1.0.0/createjs.min.js public/assets/scripts && next build",
+    "build": "copyfiles --up 4 node_modules/createjs/builds/1.0.0/createjs.min.js public/scripts && next build",
     "start": "next start",
     "lint": "next lint"
   },

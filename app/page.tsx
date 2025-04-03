@@ -1,8 +1,8 @@
 'use client';
 // import Image from "next/image";
 import Script from 'next/script';
-import Avatar from '@/public/assets/scripts/avatar-library';
-import { AvatarInstructions } from '@/public/assets/scripts/avatar-library';
+import Avatar from '@/public/scripts/avatar-library';
+import { AvatarInstructions } from '@/public/scripts/avatar-library';
 // import { TestCl } from 'testfoo';
 import { useEffect } from "react";
 
@@ -42,7 +42,7 @@ export default function Home() {
 
   return (
     <div>
-      <Script src="assets/scripts/createjs.min.js" strategy="beforeInteractive"/>
+      <Script src="scripts/createjs.min.js" strategy="beforeInteractive"/>
       {/* <Script src="./public/assets/scripts/avatar-library.js"  strategy="afterInteractive"/> */}
       <canvas id="cnvs" width="933" height="935"></canvas>
 

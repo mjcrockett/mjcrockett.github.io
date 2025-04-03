@@ -139,7 +139,7 @@ declare module "leftarm" {
         instruction(handRotate: any, lowerRotate: any, upperRotate: any, shrug: any): void;
     }
 }
-declare module "@/public/assets/scripts/avatar-library" {
+declare module "@/public/scripts/avatar-library" {
     export = Avatar;
     function Avatar(): void;
     class Avatar {
