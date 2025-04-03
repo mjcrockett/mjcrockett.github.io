@@ -1,8 +1,5 @@
 'use client';
 // import Image from "next/image";
-// import { global } from "@/types/globals";
-// import Avatar from "@/types/avatar-library.d";
-// import { AvatarInstructions } from "@/types/avatar-library.d";
 import Script from 'next/script';
 import Avatar from '@/public/assets/scripts/avatar-library';
 import { AvatarInstructions } from '@/public/assets/scripts/avatar-library';
@@ -45,7 +42,7 @@ export default function Home() {
 
   return (
     <div>
-      <Script src="@/.next/public/assets/scripts/createjs.min.js"  strategy="afterInteractive"/>
+      <Script src="assets/scripts/createjs.min.js" strategy="beforeInteractive"/>
       {/* <Script src="./public/assets/scripts/avatar-library.js"  strategy="afterInteractive"/> */}
       <canvas id="cnvs" width="933" height="935"></canvas>
 
