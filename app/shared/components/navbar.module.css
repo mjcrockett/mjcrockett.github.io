@@ -1,0 +1,12 @@
+.pushRight {
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+    color:var(--bs-nav-color);
+    margin-left:auto;
+}
+
+/* a {
+    text-decoration: underline !important;
+    color: var(--bs-link-color) !important;
+    cursor: pointer;
+} */

@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     config.plugins.push(
       new CopyPlugin({
         patterns: [
-          { from: "node_modules/createjs/builds/1.0.0", to: "public/assets/scripts" },
+          { from: "node_modules/createjs/builds/1.0.0", to: "public/scripts" },
         ],
       }),
     )
