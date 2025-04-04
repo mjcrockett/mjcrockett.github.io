@@ -1,10 +1,9 @@
-import dynamic from 'next/dynamic';
 import { useRoutes } from 'react-router-dom';
-import AvatarComponent from '../../avatar/avatar.component';
+import AvatarPage from '../../avatar/avatar.page';
 
 export const AppRoutes = () => {
     let routes = [
-        { path: '/*', element: <AvatarComponent />}
+        { path: '/*', element: <AvatarPage />}
     ];
 
     const element = useRoutes(routes);

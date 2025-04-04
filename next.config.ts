@@ -3,6 +3,7 @@ import CopyPlugin from "copy-webpack-plugin";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  reactStrictMode: false,
   webpack: (config, { dev }) => {
     // append the CopyPlugin to copy the file to your public dir
     config.plugins.push(

@@ -1,11 +1,13 @@
 'use client';
 import Avatar from '@/public/scripts/avatar-library';
 import { AvatarInstructions } from '@/public/scripts/avatar-library';
-import React from 'react';
 import Script from 'next/script';
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { getAvatarParent } from '@/app/shared/services/avatar.service';
+import { AvatarParent } from '../shared/models/avatar.models';
 
-export default function AvatarComponent() {
+export default function AvatarPage() {
+  const [parentData, setParentData] = useState<AvatarParent[] | null>(null);
   let avatar:Avatar;
   let instrux: AvatarInstructions = {
       mouthOpen: false,
@@ -35,12 +37,19 @@ export default function AvatarComponent() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
 
+      const fetchParentData = async () => {
+        const data = await getAvatarParent();
+        setParentData(data);
+      }
+
       window.addEventListener('avataronready', function (e) {
         console.log('avatar is ready:', e);
         avatar.go(instrux);
         avatar.transformSet(.8);
         avatar.updateStage();
       });
+
+      fetchParentData();
     }
   }, []);
 
