@@ -4,6 +4,29 @@
     color:var(--bs-nav-color);
     margin-left:auto;
 }
+.backgroundContainer{
+    /* position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    z-index: -1; */
+}
+.logoBackground{
+    background-image: url("/images/home/logo3.png");
+    height:50px;
+    background-repeat:no-repeat;
+    width: 404px;
+    float:left;
+    background-size: 404px 50px;
+}
+.background{
+    background-image: url("/images/home/bgrnd_tile.png");
+    height:50px;
+    background-repeat: repeat;
+    background-color:transparent;
+    overflow:hidden;
+    width:auto;
+}
 
 /* a {
     text-decoration: underline !important;

@@ -1,0 +1,60 @@
+.avatarOverlayContainer {
+  transition: .5s ease-in-out all;
+  z-index:1032;
+  position:relative;
+}
+.hideO{
+  opacity: 0;
+}
+.onTop {
+  z-index:1033;
+  position:absolute;
+  width:100%;
+}
+.enter {
+  text-align:center;
+  padding-top:10%;
+}
+.enter img{
+  cursor:pointer;
+  width:203px;
+  height:74px;
+  transition: transform .2s;
+}
+.enter img:hover {
+  transform: scale(1.25);
+}
+.spinnerPosition {
+  top:initial;
+}
+
+.slideContainer {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,.75);
+    z-index:1031;
+}
+.slidingBackground {
+    height: 4000px;
+    width: 4000px;
+    background: url("/images/home/bground4.png") repeat;
+    background-size: 400px 400px;
+    opacity: .85;
+    animation: slide 60s linear infinite;
+    right:0;
+    bottom:0;
+    position:absolute;
+  }
+  @keyframes slide {
+    0%{
+      transform: translate3d(0, 0, 0);
+    }
+    100%{
+      transform: translate3d(400px, 400px, 0); /* The image width */
+    }
+  }
