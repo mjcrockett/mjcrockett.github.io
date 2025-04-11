@@ -16,6 +16,7 @@ function Overlay() {
         setHidingOverlay(true);
         setTimeout(() => {
             setShowOverlay(false);
+            setHidingOverlay(false);
             setInteracted(true);
         }, 1000);
     };

@@ -5,11 +5,11 @@
     margin-left:auto;
 }
 .backgroundContainer{
-    /* position:absolute;
+    position:absolute;
     top:0;
     left:0;
     right:0;
-    z-index: -1; */
+    z-index: -1;
 }
 .logoBackground{
     background-image: url("/images/home/logo3.png");
@@ -27,9 +27,3 @@
     overflow:hidden;
     width:auto;
 }
-
-/* a {
-    text-decoration: underline !important;
-    color: var(--bs-link-color) !important;
-    cursor: pointer;
-} */

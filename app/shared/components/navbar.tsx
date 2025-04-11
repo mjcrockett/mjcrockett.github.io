@@ -1,47 +1,39 @@
 'use client';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-// import { useAuth } from './auth-context';
-// import AuthService from '../services/auth-service';
 import styles from './navbar.module.css';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
 export const NavBar = () => {
-    // const { auth, user, setAuth } = useAuth();
-    // const navigate = useNavigate();
-    
-    // const logout = () => {
-    //     AuthService.logout().then(response => {
-    //         setAuth(false);
-    //         navigate('/');
-    //     })
-    //     .catch(error => {
-    //         console.log('There was a problem logging out: ' + error);
-    //     });
-    // };
-
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className={`container-fluid ${styles.backgroundContainer}`}>
+    <Navbar collapseOnSelect expand="lg">
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <NavLink key='Home' to='/'>Home</NavLink>&nbsp;
-                        </li>
-                        {/* <li className="nav-item">
-                            <NavLink key='Project' to='/project'>Project</NavLink>&nbsp;
-                        </li>
-                        <li className="nav-item">
-                            <NavLink key='Log In' to='/login'>Log In</NavLink>
-                        </li> */}
+        <div className={styles.backgroundContainer}>
+            <div className={styles.logoBackground}></div>
+            <div className={styles.background}></div>
+        </div>
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+        <Navbar.Brand href="/" style={{width: '404px'}} ></Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+            </NavDropdown>
+            </Nav>
+            <Nav>
+            <Nav.Link href="#deets">More deets</Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+                Dank memes
+            </Nav.Link>
+            </Nav>
+        </Navbar.Collapse>
+    </Navbar>
     )
 }
