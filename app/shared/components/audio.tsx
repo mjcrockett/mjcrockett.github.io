@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useInteract } from './interaction';
 
 export interface IAudioProps {
     play: (playing: boolean) => void;
@@ -12,6 +13,7 @@ export interface IAudioProps {
 export default function Audio(aProps: IAudioProps) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [noAutoPlay, setNoAutoPlay] = useState(false);
+    const { setInteracted } = useInteract();
     const audioRef = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
@@ -75,9 +77,7 @@ export default function Audio(aProps: IAudioProps) {
                 // Autoplay was prevented.
                 // Show a "Play" button so that user can start playback.
                 setNoAutoPlay(true);
-
-                //TO DO
-                // this._interactionService.interactionNeeded = true;
+                setInteracted(false);
             });
         }
     }

@@ -1,48 +1,57 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import { getAvatarParent } from '@/app/shared/services/avatar.service';
+import { getAllData } from '@/app/shared/services/avatar.service';
 import { AvatarParent } from '../shared/models/avatar.models';
 import View, { IViewProps } from './view';
-import Audio, { IAudioProps } from '../shared/components/audio';
+import Audio, { IAudioContext } from '../shared/components/audio';
 import { useInteract } from '../shared/components/interaction';
 import Overlay from "../shared/components/overlay";
+import { Deferred } from "../shared/utils/deferred";
 
 export default function AvatarPage() {
   const [parentData, setParentData] = useState<AvatarParent[] | null>(null);
-  const { interacted, setInteracted } = useInteract();
-  const aProps: IAudioProps = {
+  const { interacted } = useInteract();
+  const audioReady: Deferred<string> = new Deferred<string>();
+  const avatarReady: Deferred<string> = new Deferred<string>();
+  const aProps: IAudioContext = {
     play: (playing: boolean) => {},
     canPlayThrough: (duration: number) => {},
     finish: (ended: boolean) => {},
     pause: (paused: boolean) => {},
     timeUpdate: (timeUpdate: number) => {},
     isReady: (ready: boolean) => {
-      console.log("Audio is ready now hurray");
+      if (ready) 
+        audioReady.resolve('Audio is ready now hurray');
     }
   };
   const viewProps: IViewProps = {
     avataronready: () => {
-      console.log("Avatar is ready now yippee");
+      avatarReady.resolve('Avatar is ready now yippee');
     }
   };
 
+  const onEnter = () => {
+    console.log('Im entering');
+  };
+
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    // const fetchAvatarData = async () => {
+    //   const data = getAllData();
+    //   setParentData(data);
+    // }
 
-      const fetchParentData = async () => {
-        const data = await getAvatarParent();
-        setParentData(data);
-      }
+    Promise.all([avatarReady, audioReady, getAllData()]).then(() => {
+      console.log('everything is ready');
+    });
 
-      fetchParentData();
-    }
+    // fetchAvatarData();
   }, []);
   
   return (
     <div>
       {
         !interacted &&
-        <Overlay></Overlay>
+        <Overlay onEnter={onEnter}></Overlay>
       }
       <Audio {...aProps}></Audio>
       <View avataronready={viewProps.avataronready}></View>
