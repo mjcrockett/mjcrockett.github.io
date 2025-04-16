@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { NavBar } from './shared/components/navbar';
 import React, { useEffect, useState } from 'react';
 import { AppRoutes } from './shared/routes';
-import Interaction from './shared/components/interaction';
+import Interaction from './shared/contexts/interaction';
 
 export default function Home() {
 

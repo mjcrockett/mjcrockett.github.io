@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './overlay.module.css';
-import { useInteract } from './interaction';
+import { useInteract } from '../contexts/interaction';
 
 function Overlay({onEnter} : {onEnter: () => void}) {
     const [ showOverlay, setShowOverlay] = useState(true);

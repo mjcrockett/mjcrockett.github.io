@@ -3,17 +3,18 @@ import React, { useEffect, useState } from "react";
 import { getAllData } from '@/app/shared/services/avatar.service';
 import { AvatarParent } from '../shared/models/avatar.models';
 import View, { IViewProps } from './view';
-import Audio, { IAudioContext } from '../shared/components/audio';
-import { useInteract } from '../shared/components/interaction';
+import Audio, { IAudioProps } from './audio';
+import { useInteract } from '../shared/contexts/interaction';
 import Overlay from "../shared/components/overlay";
 import { Deferred } from "../shared/utils/deferred";
+import DataProvider, { useData } from "./data-context";
 
 export default function AvatarPage() {
   const [parentData, setParentData] = useState<AvatarParent[] | null>(null);
   const { interacted } = useInteract();
   const audioReady: Deferred<string> = new Deferred<string>();
   const avatarReady: Deferred<string> = new Deferred<string>();
-  const aProps: IAudioContext = {
+  const aProps: IAudioProps = {
     play: (playing: boolean) => {},
     canPlayThrough: (duration: number) => {},
     finish: (ended: boolean) => {},
@@ -35,26 +36,22 @@ export default function AvatarPage() {
   };
 
   useEffect(() => {
-    // const fetchAvatarData = async () => {
-    //   const data = getAllData();
-    //   setParentData(data);
-    // }
 
-    Promise.all([avatarReady, audioReady, getAllData()]).then(() => {
+    Promise.all([avatarReady, audioReady]).then(() => {
       console.log('everything is ready');
     });
 
-    // fetchAvatarData();
   }, []);
-  
+
+
   return (
-    <div>
+    <DataProvider>
       {
         !interacted &&
         <Overlay onEnter={onEnter}></Overlay>
       }
       <Audio {...aProps}></Audio>
       <View avataronready={viewProps.avataronready}></View>
-    </div>
+    </DataProvider>
   );
 }

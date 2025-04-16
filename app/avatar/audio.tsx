@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useInteract } from './interaction';
+import { useInteract } from '../shared/contexts/interaction';
+import { useData } from './data-context';
 
 export interface IAudioProps {
     play: (playing: boolean) => void;
@@ -14,6 +15,7 @@ export default function Audio(aProps: IAudioProps) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [noAutoPlay, setNoAutoPlay] = useState(false);
     const { setInteracted } = useInteract();
+    const { selectedParent, selectedInstructions, fetchRandomAvoidId } = useData();
     const audioRef = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
@@ -22,7 +24,11 @@ export default function Audio(aProps: IAudioProps) {
             return;
         }
         const handlePlay = () => { aProps.play(true); setIsPlaying(true); };
-        const handleCanPlayThrough = () => { aProps.canPlayThrough(audioElement.duration); setIsPlaying(true); play(); };
+        const handleCanPlayThrough = () => { 
+            aProps.canPlayThrough(audioElement.duration); 
+            setIsPlaying(true); 
+            play(); 
+        };
         const handlePause = () => { aProps.pause(true); setIsPlaying(false); };
         const handleEnded = () => { aProps.finish(true); setIsPlaying(false); };
         const timeupdate = () => { aProps.timeUpdate(audioElement.currentTime); setIsPlaying(false); };
@@ -43,6 +49,18 @@ export default function Audio(aProps: IAudioProps) {
             audioElement.removeEventListener('timeupdate', timeupdate);
         };
       }, []);
+
+      useEffect(() => {
+        if (!!selectedParent?.Id && selectedInstructions?.length > 0) {
+          console.log('Data is ready');
+
+        //   changeSource('audio/thoughts/' + selectedParent.Audio);
+            // setTimeout(() => {
+            //     fetchRandomAvoidId();
+            // },4000);
+        }
+        
+      }, [selectedParent, selectedInstructions]);
 
     const changeSource = (audio?: string) => {
         const audioElement = audioRef.current;
@@ -87,3 +105,7 @@ export default function Audio(aProps: IAudioProps) {
     );
   
 }
+function fetchRandomAvoidId() {
+    throw new Error('Function not implemented.');
+}
+
