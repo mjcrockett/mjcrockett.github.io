@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from './overlay.module.css';
-import { useInteract } from '../contexts/interaction';
+import { useInteract } from '../contexts/interaction-context';
 
-function Overlay({onEnter} : {onEnter: () => void}) {
+function Overlay({onEnter} : {onEnter?: () => void}) {
     const [ showOverlay, setShowOverlay] = useState(true);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ hidingOverlay, setHidingOverlay ] = useState(false);
@@ -14,7 +14,10 @@ function Overlay({onEnter} : {onEnter: () => void}) {
     };
 
     const onHide = () => {
-        onEnter();
+        if (onEnter) {
+            onEnter();
+        }
+        
         setHidingOverlay(true);
         setTimeout(() => {
             setShowOverlay(false);

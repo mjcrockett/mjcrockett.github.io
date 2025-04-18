@@ -3,12 +3,15 @@ import Avatar from '@/public/scripts/avatar-library';
 import { AvatarInstructions } from '@/public/scripts/avatar-library';
 import Script from 'next/script';
 import React, { useEffect } from "react";
+import { useData } from './data-context';
 
 export interface IViewProps {
-    avataronready: (ready: boolean) => void;
+    avataronready?: (ready: boolean) => void;
+    indexChange: number | undefined;
 }
 
 export default function View(vProps: IViewProps) {
+  const { selectedInstructions } = useData();
   let avatar:Avatar;
   let instrux: AvatarInstructions = {
       mouthOpen: false,
@@ -39,11 +42,13 @@ export default function View(vProps: IViewProps) {
     if (typeof window !== 'undefined') {
 
         const handleOnReady = () => { 
+          if (vProps.avataronready) {
             vProps.avataronready(true); 
-            // console.log('avatar is ready:', e);
-            instruction(instrux)
-            avatar.transformSet(.8);
-            avatar.updateStage();
+          }
+
+          instruction(instrux)
+          avatar.transformSet(.8);
+          avatar.updateStage();
         };
 
         window.addEventListener('avataronready', handleOnReady);
@@ -53,6 +58,12 @@ export default function View(vProps: IViewProps) {
         };
     }
   }, []);
+
+  useEffect(() => {
+    if (!!vProps.indexChange) {
+      instruction(selectedInstructions[vProps.indexChange].InstructionJson);
+    }
+  }, [vProps.indexChange]);
 
   const onCreateJsLoad = () => {
     if (typeof window !== 'undefined') {

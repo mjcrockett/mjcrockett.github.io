@@ -1,5 +1,5 @@
 import { useRoutes } from 'react-router-dom';
-import AvatarPage from '../../avatar/avatar.page';
+import AvatarPage from '../../avatar/page';
 
 export const AppRoutes = () => {
     let routes = [
