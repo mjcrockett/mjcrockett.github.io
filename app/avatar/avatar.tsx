@@ -1,93 +1,79 @@
-import { useEffect, useState } from "react";
-import View from "./view";
-import { useAudio } from "../shared/contexts/audio-context";
-import { useData } from "./data-context";
+'use client';
+import Avatar from '@/public/scripts/avatar-library';
+import { AvatarInstructions } from '@/public/scripts/avatar-library';
+import Script from 'next/script';
+import React, { useEffect, useState } from "react";
+import Animator from './animator';
 
-function Avatar({avatarReady} : {avatarReady?: () => void}) {
-    const [indexChange, setIndexChange] = useState<number | undefined>(undefined);
-    const { playing, canPlayThrough, audioRef } = useAudio();
-    const { selectedInstructions } = useData();
-    const fpsInterval: number = 1000 / 30;
-    let then: number;
-    let animationFrame: number;
-    let trnscrptIdx: number = 0;
-    let trnscrptTimeA: number = 0;
-    let trnscrptTimeB: number | null = null;
-    let duration: number;
-    
-    useEffect(() => {
-        duration = canPlayThrough;
-    }, [canPlayThrough]);
-
-    useEffect(() => {
-        if (playing) {
-            trnscrptIdx = 0;
-            getTranscriptIndex(selectedInstructions[trnscrptIdx].Interval);
-            then = Date.now();
-            getTime();
-        }
-    }, [playing]);
-
-    function getTime(this: any) {
-        animationFrame = requestAnimationFrame(getTime.bind(this));
-
-        // calc elapsed time since last loop
-        let now = Date.now();
-        let elapsed = now - then;
-
-        // if enough time has elapsed, draw the next frame
-        if (elapsed > fpsInterval) {
-            // Get ready for next frame by setting then=now, but also adjust for your
-            // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
-            then = now - (elapsed % fpsInterval);
-
-            if (!audioRef){
-                console.log("audioRef was null");
-                cancelAnimationFrame(animationFrame);
-                return;
-            }
-
-            let s = audioRef.currentTime;
-            onSeek(s);
-        }
-    };
-
-    const onSeek = (interval: number) => {
-        if (!selectedInstructions)
-            return;
-      
-          if (interval < trnscrptTimeA || (trnscrptTimeB && interval >= trnscrptTimeB)) {
-            getTranscriptIndex(interval);
-          }
-    };
-
-    const getTranscriptIndex = (interval: number) => {
-        if (!selectedInstructions)
-          return;
-        for (var ct = 0; ct < selectedInstructions.length; ct++) {
-          if (ct == selectedInstructions.length - 1) {
-            trnscrptIdx = ct;
-            trnscrptTimeA = selectedInstructions[ct].Interval;
-            trnscrptTimeB = duration;
-            break;
-          }
-          else if (interval >= selectedInstructions[ct].Interval && interval < selectedInstructions[ct + 1].Interval) {
-            trnscrptIdx = ct;
-            trnscrptTimeA = selectedInstructions[ct].Interval;
-            trnscrptTimeB = selectedInstructions[ct + 1].Interval;
-            break;
-          }
-        }
-    
-        setIndexChange(trnscrptIdx);
-      }
-
-
-    return ( 
-    <div>
-        <View avataronready={avatarReady} indexChange={indexChange}></View>
-    </div> 
-    );
+export interface IViewProps {
+    avataronready?: () => void;
 }
 
-export default Avatar;
+export default function AvatarComponent(vProps: IViewProps) {
+  let [avatar, setAvatar] = useState<Avatar | undefined>(undefined);
+  let instrux: AvatarInstructions = {
+      mouthOpen: false,
+      headTurn: "front", //"front", "left", "right"
+      eyes: "front", //"front", "left", "right", "close"
+      headRotate: 0,
+      neckRotate: 0,
+      hipsRotate: 0,
+      chestRotate: 0,
+      footLeftRotate: 0,
+      legLeftLowerRotate: 0,
+      legLeftUpperRotate: 0,
+      footRightRotate: 0,
+      legRightLowerRotate: 0,
+      legRightUpperRotate: 0,
+      handLeftRotate: 0,
+      armLeftLowerRotate: 0,
+      armLeftUpperRotate: 0,
+      handRightRotate: 0,
+      armRightLowerRotate: 0,
+      armRightUpperRotate: 0,
+      rightShrug: 0,
+      leftShrug: 0,
+      headShrug: 0
+    };
+  // let instrux = JSON.parse(`{"mouthOpen":false,"headTurn":"front","eyes":"left","headRotate":-9,"neckRotate":7,"hipsRotate":0,"chestRotate":4,"footLeftRotate":-13,"legLeftLowerRotate":8,"legLeftUpperRotate":2,"footRightRotate":0,"legRightLowerRotate":14,"legRightUpperRotate":-9,"handLeftRotate":0,"armLeftLowerRotate":0,"armLeftUpperRotate":-9,"handRightRotate":-9,"armRightLowerRotate":-95,"armRightUpperRotate":5,"rightShrug":0,"leftShrug":0,"headShrug":0}`);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+
+        const handleOnReady = () => { 
+          if (vProps.avataronready) {
+            vProps.avataronready(); 
+          }
+
+          instruction(instrux)
+          avatar?.transformSet(.8);
+          avatar?.updateStage();
+        };
+
+        window.addEventListener('avataronready', handleOnReady);
+
+        return () => {
+            window.removeEventListener('avataronready', handleOnReady);
+        };
+    }
+  }, []);
+
+  const onCreateJsLoad = () => {
+    if (typeof window !== 'undefined') {
+      avatar = new Avatar();
+      setAvatar(avatar);
+    }
+  }
+
+  const instruction = (instrx: AvatarInstructions) => {
+    avatar?.go(instrx);
+  }
+  
+  return (
+    <div>
+      <Script src="scripts/createjs.min.js" strategy="afterInteractive" onLoad={onCreateJsLoad}/>
+      <canvas id="cnvs" width="933" height="935"></canvas>
+      <Animator avatar={avatar}></Animator>
+    </div>
+  );
+}

@@ -36,7 +36,7 @@ function AudioProvider({ children }: AppProviderProps) {
     const [paused, setOnPause] = useState(false);
     const [audioReady, setOnAudioReady] = useState(false);
     const [audioRef, setAudioRef] = useState<HTMLAudioElement | null>(null);
-    const { interacted, setInteracted } = useInteract();
+    const { setInteracted } = useInteract();
     // const { selectedParent, selectedInstructions, fetchRandomAvoidId } = useData();
     const ref = useRef<HTMLAudioElement>(null);
 
@@ -98,12 +98,6 @@ function AudioProvider({ children }: AppProviderProps) {
     //     }
     
     // }, [selectedParent, selectedInstructions]);
-
-    useEffect(() => {
-        if (interacted && audioRef) {
-            audioRef.load();
-        }
-    }, [interacted]);
 
 
     const changeSource = (audio?: string) => {

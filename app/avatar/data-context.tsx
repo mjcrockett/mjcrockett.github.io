@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AvatarInstruction, AvatarParent } from "../shared/models/avatar.models";
 import { getAllData } from "../shared/services/avatar.service";
+import { ConvertTimeStringToSeconds } from "../shared/utils/convert-interval";
 
 interface IDataContext {
     selectedParent: AvatarParent;
@@ -30,9 +31,9 @@ function DataProvider({ children }: AppProviderProps) {
 
     const fetchRandomAvoidId = (avoidId?: number) => {
         if (allParents?.length > 0) {
-            let allowed = allParents;
+            let allowed = allParents.filter(item => item.IsActive === true);
             if (!!avoidId) {
-                allowed = allParents.filter(item => item.Id !== avoidId && item.IsActive === true);
+                allowed = allParents.filter(item => item.Id !== avoidId);
             }
             const randomIndex = Math.floor(Math.random() * allowed.length);
             setSelectedParent({...selectedParent, ...allowed[randomIndex]});
@@ -43,6 +44,12 @@ function DataProvider({ children }: AppProviderProps) {
         getAllData().then((response: [AvatarParent[], AvatarInstruction[]]) => {
             if (response?.length > 1) {
                 setAllParents([...allParents, ...response[0]]);
+
+                response[1]?.forEach(i => {
+                    i.Interval = ConvertTimeStringToSeconds(i.Interval.toString());
+                    i.InstructionJson = JSON.parse(i.InstructionJson.toString())
+                });
+
                 setAllInstructions([...allInstructions, ...response[1]]);
             }
         });
@@ -51,7 +58,7 @@ function DataProvider({ children }: AppProviderProps) {
 
     useEffect(() => {
         if (!!selectedParent?.Id) {
-            const avInstruction = allInstructions.filter(data => data.AvatarId === selectedParent.Id);
+            const avInstruction = allInstructions.filter(data => data.AvatarId === selectedParent.Id).sort((a, b) => a.Interval - b.Interval);
             setSelectedInstructions([...selectedInstructions, ...avInstruction]);
         }
     }, [selectedParent]);
