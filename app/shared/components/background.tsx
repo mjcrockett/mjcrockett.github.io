@@ -8,7 +8,7 @@ function Background({maxWidth} : {maxWidth?: number}) {
 
     useEffect(() => {
         if (ref.current) {
-            ref.current.src = BackgroundImages.home;
+            ref.current.src = BackgroundImages.forest;
         }
     }, []);
 
