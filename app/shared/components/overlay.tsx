@@ -36,7 +36,7 @@ function Overlay({onEnter} : {onEnter?: () => void}) {
     }, []);
 
     return ( 
-        <div>
+        <div className={styles.overlayBody}>
         {   showOverlay && 
             <div className={`${styles.avatarOverlayContainer} ${hidingOverlay ? styles.hideO : ''}`}>
                 <div className={styles.slideContainer}>
@@ -53,7 +53,7 @@ function Overlay({onEnter} : {onEnter?: () => void}) {
                         </div>
                     }
 
-                     </div>
+                    </div>
                     <div className="row" >
                         <div className={styles.spinnerPosition}>
 

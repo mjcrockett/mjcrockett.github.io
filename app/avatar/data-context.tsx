@@ -6,7 +6,7 @@ import { ConvertTimeStringToSeconds } from "../shared/utils/convert-interval";
 interface IDataContext {
     selectedParent: AvatarParent;
     selectedInstructions: AvatarInstruction[];
-    fetchRandomAvoidId: () => void;
+    fetchRandomAvoidId: (avoidId?: number) => void;
 }
 
 const DataContext = createContext<IDataContext>({
@@ -33,7 +33,7 @@ function DataProvider({ children }: AppProviderProps) {
         if (allParents?.length > 0) {
             let allowed = allParents.filter(item => item.IsActive === true);
             if (!!avoidId) {
-                allowed = allParents.filter(item => item.Id !== avoidId);
+                allowed = allowed.filter(item => item.Id !== avoidId);
             }
             const randomIndex = Math.floor(Math.random() * allowed.length);
             setSelectedParent({...selectedParent, ...allowed[randomIndex]});
@@ -59,7 +59,7 @@ function DataProvider({ children }: AppProviderProps) {
     useEffect(() => {
         if (!!selectedParent?.Id) {
             const avInstruction = allInstructions.filter(data => data.AvatarId === selectedParent.Id).sort((a, b) => a.Interval - b.Interval);
-            setSelectedInstructions([...selectedInstructions, ...avInstruction]);
+            setSelectedInstructions([...avInstruction]);
         }
     }, [selectedParent]);
 

@@ -4,6 +4,7 @@ import { NavBar } from './shared/components/navbar';
 import React, { useEffect, useState } from 'react';
 import { AppRoutes } from './shared/routes';
 import Interaction from './shared/contexts/interaction-context';
+import styles from './page.module.css';
 
 export default function Home() {
 
@@ -19,7 +20,7 @@ export default function Home() {
       <Interaction>
         <Router>
           <NavBar />
-          <div className="center-container">
+          <div className={styles.centerContainer}>
             <AppRoutes />
           </div>
         </Router>

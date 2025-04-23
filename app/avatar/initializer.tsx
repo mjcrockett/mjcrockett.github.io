@@ -5,8 +5,8 @@ import { useAudio } from "../shared/contexts/audio-context";
 import { useInteract } from "../shared/contexts/interaction-context";
 
 export default function Initializer({avatarReady} : {avatarReady: boolean}) {
-  const { audioRef, audioReady, changeSource } = useAudio();
-  const { selectedInstructions, selectedParent } = useData();
+  const { audioRef, audioReady, ended, changeSource } = useAudio();
+  const { selectedInstructions, selectedParent, fetchRandomAvoidId } = useData();
   const { interacted } = useInteract();
   
   useEffect(() => {
@@ -22,6 +22,12 @@ export default function Initializer({avatarReady} : {avatarReady: boolean}) {
       audioRef.load();
     }
   }, [interacted]);
+
+  useEffect(() => {
+    if (ended === true) {
+      fetchRandomAvoidId(selectedParent.Id);
+    }
+  }, [ended]);
 
   return (
     <></>

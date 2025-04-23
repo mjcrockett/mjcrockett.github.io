@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useAudio } from "../shared/contexts/audio-context";
 import { useData } from "./data-context";
 import Avatar from "@/public/scripts/avatar-library";
+import { AvatarInstruction } from "../shared/models/avatar.models";
 
 function Animator({avatar} : {avatar?: Avatar}) {
-    // const [indexChange, setIndexChange] = useState<number | undefined>(undefined);
-    const { playing, canPlayThrough, audioRef } = useAudio();
+    const { playing, canPlayThrough, ended, audioRef } = useAudio();
     const { selectedInstructions } = useData();
+    const transcript = useRef<AvatarInstruction[]>(null);
     const fpsInterval: number = 1000 / 30;
     let then: number;
     let animationFrame: number;
@@ -20,69 +21,72 @@ function Animator({avatar} : {avatar?: Avatar}) {
     }, [canPlayThrough]);
 
     useEffect(() => {
-        if (playing) {
-            trnscrptIdx = 0;
-            getTranscriptIndex(0);//selectedInstructions[trnscrptIdx].Interval
-            then = Date.now();
-            getTime();
-        }
-    }, [playing]);
+      if (playing && selectedInstructions) {
+        transcript.current = selectedInstructions;
+        trnscrptIdx = 0;
+        getTranscriptIndex(transcript.current[0].Interval);
+        then = Date.now();
+        getTime();
+      }
+    }, [playing, selectedInstructions]);
 
-    function getTime(this: any) {
-        animationFrame = requestAnimationFrame(getTime.bind(this));
+    useEffect(() => {
+      cancelAnimationFrame(animationFrame);
+    }, [ended]);
 
-        // calc elapsed time since last loop
-        let now = Date.now();
-        let elapsed = now - then;
+    function getTime() {
+      animationFrame = requestAnimationFrame(getTime);
 
-        // if enough time has elapsed, draw the next frame
-        if (elapsed > fpsInterval) {
-            // Get ready for next frame by setting then=now, but also adjust for your
-            // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
-            then = now - (elapsed % fpsInterval);
+      // calc elapsed time since last loop
+      let now = Date.now();
+      let elapsed = now - then;
 
-            if (!audioRef){
-                console.log("audioRef was null");
-                cancelAnimationFrame(animationFrame);
-                return;
-            }
+      // if enough time has elapsed, draw the next frame
+      if (elapsed > fpsInterval) {
+          // Get ready for next frame by setting then=now, but also adjust for your
+          // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
+          then = now - (elapsed % fpsInterval);
 
-            let s = audioRef.currentTime;
-            onSeek(s);
-        }
+          if (!audioRef){
+              console.log("audioRef was null");
+              cancelAnimationFrame(animationFrame);
+              return;
+          }
+
+          let s = audioRef.currentTime;
+          onSeek(s);
+      }
     };
 
     const onSeek = (interval: number) => {
-        if (!selectedInstructions)
-            return;
-      
-          if (interval < trnscrptTimeA || (trnscrptTimeB && interval >= trnscrptTimeB)) {
-            getTranscriptIndex(interval);
-          }
+      if (!transcript.current)
+          return;
+    
+      if (interval < trnscrptTimeA || (trnscrptTimeB && interval >= trnscrptTimeB)) {
+        getTranscriptIndex(interval);
+      }
     };
 
     const getTranscriptIndex = (interval: number) => {
-        if (!selectedInstructions)
-          return;
-        for (var ct = 0; ct < selectedInstructions.length; ct++) {
-          if (ct == selectedInstructions.length - 1) {
-            trnscrptIdx = ct;
-            trnscrptTimeA = selectedInstructions[ct].Interval;
-            trnscrptTimeB = duration;
-            break;
-          }
-          else if (interval >= selectedInstructions[ct].Interval && interval < selectedInstructions[ct + 1].Interval) {
-            trnscrptIdx = ct;
-            trnscrptTimeA = selectedInstructions[ct].Interval;
-            trnscrptTimeB = selectedInstructions[ct + 1].Interval;
-            break;
-          }
+      if (!transcript.current)
+        return;
+      for (var ct = 0; ct < transcript.current.length; ct++) {
+        if (ct == transcript.current.length - 1) {
+          trnscrptIdx = ct;
+          trnscrptTimeA = transcript.current[ct].Interval;
+          trnscrptTimeB = duration;
+          break;
         }
-    
-        // setIndexChange(trnscrptIdx);
-        console.log(selectedInstructions[trnscrptIdx].InstructionJson);
-        avatar?.go(selectedInstructions[trnscrptIdx].InstructionJson);
+        else if (interval >= transcript.current[ct].Interval && interval < transcript.current[ct + 1].Interval) {
+          trnscrptIdx = ct;
+          trnscrptTimeA = transcript.current[ct].Interval;
+          trnscrptTimeB = transcript.current[ct + 1].Interval;
+          break;
+        }
       }
+  
+      avatar?.go(transcript.current[trnscrptIdx].InstructionJson);
+    }
 
   return ( 
   <></>

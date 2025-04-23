@@ -16,15 +16,17 @@ export default function AvatarPage() {
   };
 
   return (
-    <DataProvider>
-      <AudioProvider>
-        <Initializer avatarReady={avatarReady}></Initializer>
-        {
-          !interacted &&
-          <Overlay></Overlay>
-        }
-        <AvatarComponent avataronready={avatarOnReady}></AvatarComponent>
-      </AudioProvider>
-    </DataProvider>
+    <div>
+      <DataProvider>
+        <AudioProvider>
+          <Initializer avatarReady={avatarReady}></Initializer>
+          {
+            !interacted &&
+            <Overlay></Overlay>
+          }
+          <AvatarComponent avataronready={avatarOnReady}></AvatarComponent>
+        </AudioProvider>
+      </DataProvider>
+    </div>
   );
 }
