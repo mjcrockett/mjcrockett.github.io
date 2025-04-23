@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { useInteract } from './interaction-context';
-// import { useData } from './data-context';
 
 export interface IAudioContext {
     playing: boolean;
@@ -19,7 +18,7 @@ const AudioContext = createContext<IAudioContext>({
     paused: false,
     audioReady: false,
     audioRef: null,
-    changeSource: (audio?: string) => {}
+    changeSource: () => {}
 });
 
 //Custom hook

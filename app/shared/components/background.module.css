@@ -1,0 +1,21 @@
+#bkgrndimg {
+    display:block;
+    margin:auto;
+}
+.bkgrndWrapper {
+    position:absolute;
+    z-index:-2;
+    top:0;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: fit-content;
+}
+@media only screen and (max-width: 1975px) { 
+    #bkgrndimg {
+        position:absolute;
+        left: -9999px;
+        right: -9999px;
+        margin: auto;
+    }
+}

@@ -118,7 +118,7 @@ export default function AvatarComponent(vProps: IViewProps) {
   return (
     <div>
       <Script src="scripts/createjs.min.js" strategy="afterInteractive" onLoad={onCreateJsLoad}/>
-      <canvas id="cnvs" width="933" height="935" ref={ref}></canvas>
+      <canvas id="cnvs" width={defaultCnvWidth} height={defaultCnvHeight} ref={ref}></canvas>
       <Animator avatar={avatar}></Animator>
     </div>
   );

@@ -55,7 +55,6 @@ function DataProvider({ children }: AppProviderProps) {
         });
     }, []);
 
-
     useEffect(() => {
         if (!!selectedParent?.Id) {
             const avInstruction = allInstructions.filter(data => data.AvatarId === selectedParent.Id).sort((a, b) => a.Interval - b.Interval);

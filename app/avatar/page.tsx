@@ -6,6 +6,7 @@ import DataProvider from "./data-context";
 import AudioProvider from "../shared/contexts/audio-context";
 import Initializer from "./initializer";
 import AvatarComponent from "./avatar";
+import Background from "../shared/components/background";
 
 export default function AvatarPage() {
   const [avatarReady, setAvatarReady] = useState(false);
@@ -27,6 +28,7 @@ export default function AvatarPage() {
           <AvatarComponent avataronready={avatarOnReady}></AvatarComponent>
         </AudioProvider>
       </DataProvider>
+      <Background maxWidth={1000}></Background>
     </div>
   );
 }
