@@ -47,9 +47,11 @@ function Overlay({onEnter} : {onEnter?: () => void}) {
 
                     { isLoading && 
                         <div className={`col d-flex justify-content-center ${styles.enter}`}>
-                            <a onClick={onHide}>
-                                <img src="/images/home/enter5.png"/>
-                            </a>
+                            <div className={`p-1 bg-light ${styles.borderRadius10} shadow-2xl`}>
+                                <a onClick={onHide}>
+                                    <img src="/images/home/enter5.png"/>
+                                </a>
+                            </div>
                         </div>
                     }
 

@@ -42,10 +42,10 @@
 .slidingBackground {
     height: 4000px;
     width: 4000px;
-    background: url("/images/home/bground4.png") repeat;
+    background: url("/images/home/bground6.png") repeat;
     background-size: 400px 400px;
-    opacity: .85;
-    animation: slide 60s linear infinite;
+    opacity: .15;
+    /* animation: slide 60s linear infinite; */
     right:0;
     bottom:0;
     position:absolute;
@@ -63,4 +63,8 @@
     position:absolute;
     left:0;
     right:0;
+  }
+
+  .borderRadius10 {
+    border-radius: 10px;
   }

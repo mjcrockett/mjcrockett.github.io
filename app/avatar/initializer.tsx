@@ -10,9 +10,11 @@ export default function Initializer({avatarReady} : {avatarReady: boolean}) {
   const { selectedInstructions, selectedParent, fetchRandomAvoidId } = useData();
   const { interacted } = useInteract();
   const bgSoundRef = useRef<HTMLAudioElement>(null);
+  let loadingNew = useRef<boolean>(false);
   
   useEffect(() => {
-    if (avatarReady && audioReady && !!selectedParent?.Id && selectedInstructions?.length > 0) {
+    if (avatarReady && audioReady && !!selectedParent?.Id && selectedInstructions?.length > 0 && !loadingNew.current) {
+      loadingNew.current = true;
       //This starts the whole loop process V
       changeSource('audio/thoughts/' + selectedParent.Audio);
     }
@@ -33,6 +35,7 @@ export default function Initializer({avatarReady} : {avatarReady: boolean}) {
 
   useEffect(() => {
     if (ended === true) {
+      loadingNew.current = false;
       fetchRandomAvoidId(selectedParent.Id);
     }
   }, [ended]);
