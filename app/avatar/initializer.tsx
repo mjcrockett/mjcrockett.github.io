@@ -23,6 +23,7 @@ export default function Initializer({avatarReady} : {avatarReady: boolean}) {
 
   useEffect(() => {
     if (interacted && audioRef) {
+      console.log('interacted');
       //This will trigger the 'canPlayThrough' event which will then play the audio
       audioRef.load();
 
