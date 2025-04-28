@@ -126,7 +126,7 @@ function AudioProvider({ children }: AppProviderProps) {
                 audioRef,
                 changeSource
             }}>
-            <audio ref={ref}></audio>
+            <audio ref={ref} preload='auto'></audio>
             {children}
         </AudioContext.Provider>
     );
