@@ -52,6 +52,7 @@ function AudioProvider({ children }: AppProviderProps) {
             setOnPause(false);
         };
         const handleCanPlayThrough = () => { 
+            console.log('can play through');
             setOnCanPlayThrough(audioRef.duration); 
             play(); 
         };

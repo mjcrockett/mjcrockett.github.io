@@ -15,6 +15,7 @@ export default function Initializer({avatarReady} : {avatarReady: boolean}) {
   useEffect(() => {
     if (avatarReady && audioReady && !!selectedParent?.Id && selectedInstructions?.length > 0 && !loadingNew.current) {
       loadingNew.current = true;
+      console.log('selected audio: ' + selectedParent.Audio);
       //This starts the whole loop process V
       changeSource('audio/thoughts/' + selectedParent.Audio);
     }
@@ -34,7 +35,9 @@ export default function Initializer({avatarReady} : {avatarReady: boolean}) {
   }, [interacted]);
 
   useEffect(() => {
+    console.log('ended: ' + ended);
     if (ended === true) {
+      console.log('-----------------');
       loadingNew.current = false;
       fetchRandomAvoidId(selectedParent.Id);
     }
