@@ -21,7 +21,7 @@ function Animator({avatar} : {avatar?: Avatar}) {
     }, [canPlayThrough]);
 
     useEffect(() => {
-      if (playing && selectedInstructions) {
+      if (playing && selectedInstructions?.length > 0) {
         transcript.current = selectedInstructions;
         trnscrptIdx = 0;
         getTranscriptIndex(transcript.current[0].Interval);
