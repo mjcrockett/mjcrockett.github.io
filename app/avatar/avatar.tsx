@@ -95,8 +95,8 @@ export default function AvatarComponent(vProps: IViewProps) {
 
     if (mPercent > .75)
       mPercent = .75;
-    else if (mPercent < .59)
-      mPercent = .59;
+    else if (mPercent < .53)
+      mPercent = .53;
 
     return mPercent;
   }
