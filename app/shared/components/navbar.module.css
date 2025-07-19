@@ -19,6 +19,18 @@
     float:left;
     background-size: 404px 50px;
 }
+.logoLink {
+    width: 404px;
+    height: 35px;
+}
+/* Styles for screens smaller than 500px */
+@media only screen and (max-width: 500px) {
+    .logoLink {
+        width: inherit;
+        max-width: 404px;
+        min-width: 340px;
+    }
+  }
 .background{
     background-image: url("/images/home/bgrnd_tile.png");
     height:50px;

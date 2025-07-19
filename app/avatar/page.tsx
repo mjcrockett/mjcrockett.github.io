@@ -28,7 +28,7 @@ export default function AvatarPage() {
           <AvatarComponent avataronready={avatarOnReady}></AvatarComponent>
         </AudioProvider>
       </DataProvider>
-      <Background maxWidth={950}></Background>
+      <Background maxWidth={1000}></Background>
     </div>
   );
 }

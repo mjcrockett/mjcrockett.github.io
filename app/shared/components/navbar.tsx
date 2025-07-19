@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import styles from './navbar.module.css';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
@@ -13,7 +12,7 @@ export const NavBar = () => {
             </div>
             
             <Navbar collapseOnSelect expand="lg" className={styles.zIndex}>
-                <Navbar.Brand href="/" style={{width: '404px'}} ></Navbar.Brand>
+                <Navbar.Brand href="/" className={styles.logoLink} ></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
