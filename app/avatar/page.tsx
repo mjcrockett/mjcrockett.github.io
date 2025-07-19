@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useInteract } from '../shared/contexts/interaction-context';
 import Overlay from "../shared/components/overlay";
 import DataProvider from "./data-context";
@@ -15,6 +15,13 @@ export default function AvatarPage() {
   const avatarOnReady = () => {
     setAvatarReady(true);
   };
+
+  useEffect(() => {
+    document.body.classList.add('no-scroll-bars');
+    return () => {
+      document.body.classList.remove('no-scroll-bars');
+    };
+  }, []);
 
   return (
     <div>
