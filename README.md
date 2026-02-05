@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# mjcrockett.github.io
+
+A web developer portfolio featuring an interactive animated avatar that delivers audio-synchronized performances. The avatar character speaks random "thoughts" while performing choreographed animations on a canvas, backed by background music and scenery.
+
+## Features
+
+- **Animated Avatar** — A canvas-based character built from sprite parts, posed in real-time at 30 FPS using CreateJS
+- **Audio-Synced Animations** — Each "thought" is an audio clip paired with timestamped pose instructions, so the avatar's movements stay in sync with what it's saying
+- **Random Performances** — The avatar cycles through different thoughts automatically, picking a new one each time
+- **Background Scenes** — Forest, city, desert, and trailer park backdrops with looping background music
+- **Avatar Shop** — Customize the avatar's appearance
+- **Break Page** — A standby/idle screen
+
+## Tech Stack
+
+- Next.js 15 (App Router)
+- React 19 + TypeScript
+- CreateJS (canvas animation)
+- Bootstrap 5 / React-Bootstrap
+- Tailwind CSS 4
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 — click the entry overlay to start the experience.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed to GitHub Pages via GitHub Actions. Pushes to `main` trigger an automatic build and deploy.

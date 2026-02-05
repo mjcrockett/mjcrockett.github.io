@@ -1,9 +1,17 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './navbar.module.css';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
 export const NavBar = () => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
     return (
         <div className={styles.absolute}>
             <div className={styles.backgroundContainer}>
@@ -18,7 +26,7 @@ export const NavBar = () => {
                     <Nav className="mr-auto">
                         {/* <Nav.Link href="#features">Features</Nav.Link> */}
                         {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
-                        <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+                        <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
                             <NavDropdown.Item href="/break">Break Page</NavDropdown.Item>
                             <NavDropdown.Item href="/avatarShop">Avatar Shop</NavDropdown.Item>
                             {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item> */}

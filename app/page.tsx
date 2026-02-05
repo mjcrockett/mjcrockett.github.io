@@ -1,8 +1,7 @@
 'use client';
-import { BrowserRouter as Router } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { AppRoutes } from './shared/routes';
 import Interaction from './shared/contexts/interaction-context';
+import AvatarPage from './avatar/page';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -15,13 +14,10 @@ export default function Home() {
 
   if (isClient) {
     return (
-      
       <Interaction>
-        <Router>
-          <div className={styles.centerContainer}>
-            <AppRoutes />
-          </div>
-        </Router>
+        <div className={styles.centerContainer}>
+          <AvatarPage />
+        </div>
       </Interaction>
     );
   }
