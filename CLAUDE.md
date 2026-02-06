@@ -27,13 +27,21 @@ The app uses Next.js file-based routing. Pages are defined by `page.tsx` files i
 
 ### Context Provider Hierarchy
 
-The avatar page nests three React Context providers in this order (outermost first):
+The root layout (`layout.tsx`) wraps all content in a `<Providers>` client component (`providers.tsx`) which provides app-wide contexts. The avatar page adds page-specific contexts.
 
+**Layout-level (wraps everything including navbar):**
+1. **VolumeProvider** (`volume-context.tsx`) — global volume state (0–1), persisted to `localStorage`
+
+**Avatar page-level (outermost first):**
 1. **Interaction** (`interaction-context.tsx`) — tracks whether the user has clicked the entry overlay (required for browser autoplay policies)
 2. **DataProvider** (`avatar/data-context.tsx`) — fetches avatar metadata and animation instructions from external JSON, selects a random avatar, filters its instructions
-3. **AudioProvider** (`audio-context.tsx`) — manages an `<audio>` element, exposes playback state (`playing`, `ended`, `canPlayThrough`) and a `changeSource()` method
+3. **AudioProvider** (`audio-context.tsx`) — manages an `<audio>` element, exposes playback state (`playing`, `ended`, `canPlayThrough`) and a `changeSource()` method. Applies volume from `VolumeProvider` to the audio element.
 
-Custom hooks: `useInteract()`, `useData()`, `useAudio()`
+Custom hooks: `useVolume()`, `useInteract()`, `useData()`, `useAudio()`
+
+### Volume Control
+
+A vertical `Form.Range` slider in the navbar (absolutely positioned below the header) controls a global volume state via `VolumeProvider`. The thoughts audio plays at master volume; background music plays at half master volume (0.5 ratio). The slider is hidden below Bootstrap's `lg` breakpoint (992px) when the mobile hamburger menu appears. Volume persists across page reloads via `localStorage`.
 
 ### Animation Pipeline
 
@@ -61,7 +69,7 @@ CreateJS is loaded as an external script (not bundled). The build step copies it
 
 ## Tech Stack
 
-- Next.js 15 (App Router, `reactStrictMode: false`)
+- Next.js 16 (App Router, Turbopack, `reactStrictMode: false`)
 - React 19
 - TypeScript (strict)
 - Tailwind CSS 4 + Bootstrap 5 / React-Bootstrap
