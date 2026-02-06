@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { useInteract } from './interaction-context';
+import { useVolume } from './volume-context';
 
 export interface IAudioContext {
     playing: boolean;
@@ -36,6 +37,7 @@ function AudioProvider({ children }: AppProviderProps) {
     const [audioReady, setOnAudioReady] = useState(false);
     const [audioRef, setAudioRef] = useState<HTMLAudioElement | null>(null);
     const { setInteracted } = useInteract();
+    const { volume } = useVolume();
     const ref = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
@@ -80,6 +82,12 @@ function AudioProvider({ children }: AppProviderProps) {
             audioRef.removeEventListener('ended', handleEnded);
         };
     }, [audioRef]);
+
+    useEffect(() => {
+        if (audioRef) {
+            audioRef.volume = volume;
+        }
+    }, [volume, audioRef]);
 
     const changeSource = (audio?: string) => {
         if (audio && audioRef) {

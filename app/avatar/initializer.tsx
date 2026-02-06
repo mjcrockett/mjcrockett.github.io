@@ -4,11 +4,13 @@ import { useData } from "./data-context";
 import { useAudio } from "../shared/contexts/audio-context";
 import { useInteract } from "../shared/contexts/interaction-context";
 import { BackgroundMusic } from "../shared/constants/background-constants";
+import { useVolume } from "../shared/contexts/volume-context";
 
 export default function Initializer({avatarReady} : {avatarReady: boolean}) {
   const { audioRef, audioReady, ended, changeSource } = useAudio();
   const { selectedInstructions, selectedParent, fetchRandomAvoidId } = useData();
   const { interacted } = useInteract();
+  const { volume } = useVolume();
   const bgSoundRef = useRef<HTMLAudioElement>(null);
   const loadingNew = useRef<boolean>(false);
   
@@ -29,10 +31,16 @@ export default function Initializer({avatarReady} : {avatarReady: boolean}) {
       if (bgSoundRef?.current) {
         bgSoundRef.current.play();
         bgSoundRef.current.loop = true;
-        bgSoundRef.current.volume = 0.5;
+        bgSoundRef.current.volume = volume * 0.5;
       }
     }
   }, [interacted]);
+
+  useEffect(() => {
+    if (bgSoundRef.current) {
+      bgSoundRef.current.volume = volume * 0.5;
+    }
+  }, [volume]);
 
   useEffect(() => {
     console.log('ended: ' + ended);

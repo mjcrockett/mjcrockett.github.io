@@ -1,21 +1,15 @@
 'use client';
 import React from "react";
 import styles from './avatarShop.module.css';
+import { VolumeIframe } from '../shared/components/volume-iframe';
 
-export default function BreakPage() {
-const src = 'https://mjcrockett.github.io/avatar-shop/';
-const title = 'Avatar Shop';
-const width = '100%';
-const allowFullScreen = true;
+export default function AvatarShopPage() {
   return (
     <div className={`flex-column ${styles.iframePosition}`} >
-      <iframe
-          src={src}
-          title={title}
-          width={width}
-          height={width}
-          allowFullScreen={allowFullScreen}
-        ></iframe>
+      <VolumeIframe
+          src="https://mjcrockett.github.io/avatar-shop/"
+          title="Avatar Shop"
+        />
     </div>
   );
 }
