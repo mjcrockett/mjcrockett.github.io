@@ -36,19 +36,19 @@ export const NavBar = () => {
                             {/* <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
                         </NavDropdown>
                     </Nav>
-                    <Nav className={styles.pushRight}>
-                        <Form.Range
-                            min={0}
-                            max={1}
-                            step={0.01}
-                            value={volume}
-                            onChange={(e) => setVolume(parseFloat(e.target.value))}
-                            className={styles.volumeSlider}
-                            title="Volume"
-                        />
-                    </Nav>
                 </Navbar.Collapse>
             </Navbar>
+            <div className={styles.volumeContainer}>
+                <Form.Range
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    value={volume}
+                    onChange={(e) => setVolume(parseFloat(e.target.value))}
+                    className={styles.volumeSlider}
+                    title="Volume"
+                />
+            </div>
         </div>
     )
 }

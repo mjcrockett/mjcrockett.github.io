@@ -2,7 +2,29 @@
   "permissions": {
     "allow": [
       "Bash(npm uninstall:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm run build:*)",
+      "Bash(dir:*)",
+      "Bash(git -C \"C:\\\\Projects\\\\mjcrockett.github.io\" status)",
+      "Bash(git -C \"C:\\\\Projects\\\\mjcrockett.github.io\" diff)",
+      "Bash(git -C \"C:\\\\Projects\\\\mjcrockett.github.io\" log --oneline -5)",
+      "Bash(git -C \"C:\\\\Projects\\\\standby\" status)",
+      "Bash(git -C \"C:\\\\Projects\\\\standby\" diff)",
+      "Bash(git -C \"C:\\\\Projects\\\\standby\" log --oneline -5)",
+      "Bash(git -C \"C:\\\\Projects\\\\avatar-shop\" status)",
+      "Bash(git -C \"C:\\\\Projects\\\\avatar-shop\" diff)",
+      "Bash(git -C \"C:\\\\Projects\\\\avatar-shop\" log --oneline -5)",
+      "Bash(git -C \"C:\\\\Projects\\\\mjcrockett.github.io\" add app/shared/contexts/volume-context.tsx app/shared/components/providers.tsx app/shared/components/volume-iframe.tsx app/layout.tsx app/shared/components/navbar.tsx app/shared/components/navbar.module.css app/shared/contexts/audio-context.tsx app/avatar/initializer.tsx app/break/page.tsx app/avatarShop/page.tsx)",
+      "Bash(git -C \"C:\\\\Projects\\\\standby\" add index.html)",
+      "Bash(git -C \"C:\\\\Projects\\\\avatar-shop\" add src/main.ts)",
+      "Bash(git -C \"C:\\\\Projects\\\\mjcrockett.github.io\" commit -m \"$\\(cat <<''EOF''\nAdd global volume slider to navbar with postMessage support for iframes\n\nVolume context with localStorage persistence controls all audio site-wide.\nNavbar slider adjusts thoughts audio at full volume and background music at\nhalf volume. Iframe pages use postMessage to relay volume to child pages.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"C:\\\\Projects\\\\standby\" commit -m \"$\\(cat <<''EOF''\nAdd postMessage listener for parent-controlled volume\n\nListens for volume-change messages from the parent page and applies\nthe volume to all audio elements.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"C:\\\\Projects\\\\avatar-shop\" commit -m \"$\\(cat <<''EOF''\nAdd postMessage listener for parent-controlled volume\n\nListens for volume-change messages from the parent page and applies\nthe volume to all audio elements.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"C:\\\\Projects\\\\mjcrockett.github.io\" push)",
+      "Bash(git -C \"C:\\\\Projects\\\\standby\" push)",
+      "Bash(git -C \"C:\\\\Projects\\\\avatar-shop\" push)"
     ]
   }
 }
